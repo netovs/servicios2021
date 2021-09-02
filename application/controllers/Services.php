@@ -21,7 +21,7 @@ class Services extends CI_Controller
     
     public function iniciar_sesion(){
         $data = json_decode(file_get_contents('php://input'), true);
-        $this->load->model('Start_session_one_model');
+        $this->load->model('start_session_one');
         $result = $this->start_session_one->findUser($data['username'], $data['pwclaveacceso_6']);
         $findUser = $result->result_id->num_rows;
         if($findUser == 1){
