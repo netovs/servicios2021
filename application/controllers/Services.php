@@ -33,6 +33,7 @@ class Services extends CI_Controller
             $this->session->set_userdata($arraResponse);
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
+            $arraResponse['msg'] = 'Inicio de sesión correcto.';
         } else {
             $arraResponse['status'] = 'ERROR';
             $arraResponse['msg'] = 'Nombre de usuario o cotraseña incorrecto.';
