@@ -30,7 +30,7 @@ class Services extends CI_Controller
             $arraResponse['nombre'] = $result->row(0)->nombre;
             $arraResponse['id'] = $result->row(0)->id;
             $arraResponse['imagenPrincipal'] = $result->row(0)->imagenPrincipal;
-            $arraResponse['logged_in'] = true;
+            $arraResponse['logged_in'] = 'true';
             $this->session->set_userdata($arraResponse);
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
