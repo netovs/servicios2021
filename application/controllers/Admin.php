@@ -20,7 +20,6 @@ class Admin extends CI_Controller
     {
         try {
             $crud = new grocery_CRUD();
-
             $crud->set_theme('datatables');
             $crud->set_table('catservicios');
             $crud->set_subject('Categoria');
@@ -162,6 +161,7 @@ class Admin extends CI_Controller
             $crud->set_subject('Usuarios');
             $crud->required_fields('username', 'nombre');
             $crud->set_relation('catUsuarios_id', 'catusuarios', 'nombre');
+            $crud->field_type('username','readonly');
             $crud->display_as('catServicios_id', 'Categoría de usuarios');
             $crud->columns('nombre', 'username', 'pwclaveacceso_6', 'imagenPrincipal');
             $crud->set_field_upload('imagenPrincipal', 'assets/uploads/files/logoServicios');
