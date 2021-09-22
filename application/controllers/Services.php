@@ -28,6 +28,7 @@ class Services extends CI_Controller
         if($findUser == 1){
             $arraResponse['status'] = 'SUCCESS';
             $arraResponse['nombre'] = $result->row(0)->nombre;
+            $arraResponse['nombreRepresentante'] = $result->row(0)->nombreRepresentante;
             $arraResponse['id'] = $result->row(0)->id;
             $arraResponse['imagenPrincipal'] = $result->row(0)->imagenPrincipal;
             $arraResponse['logged_in'] = 'true';
