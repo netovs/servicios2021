@@ -3,21 +3,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->database();
         $this->load->helper('url');
         $this->load->library('grocery_CRUD');
     }
 
-    public function _exit_view($data = null)
-    {
+    public function _exit_view($data = null) {
         $this->load->view('admin/mainAdmin.php', (array)$data);
     }
 
-    public function catservicios_management()
-    {
+    public function catservicios_management() {
         try {
             $crud = new grocery_CRUD();
             $crud->set_theme('datatables');
@@ -40,15 +37,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function servicios_management()
-    {
+    public function servicios_management() {
         try {
             $crud = new grocery_CRUD();
 
             $crud->set_theme('datatables');
             $crud->set_table('prestadoresservicios');
             $crud->set_relation('catServicios_id', 'catservicios', 'nombrecat');
+            $crud->set_relation('idUsuarioAdministrador', 'usuarios', 'nombreRepresentante');
             $crud->display_as('catServicios_id', 'Categoría de servicios');
+            $crud->display_as('idUsuarioAdministrador', 'Usuario responsable');
             $crud->set_subject('Servicios');
             $crud->required_fields('nombre');
             $crud->columns('nombre', 'logoPrestadoresServicios', 'descripPrestadoresServicios');
@@ -65,8 +63,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function snservicios_management()
-    {
+    public function snservicios_management() {
         try {
             $crud = new grocery_CRUD();
 
@@ -79,7 +76,7 @@ class Admin extends CI_Controller
             $crud->callback_add_field('redsocial', array($this, 'add_redesSOciales'));
             $crud->display_as('redsocial','Nombre de redsocial')
             ->display_as('prestadoresServicios_id', 'Prestadores de servicios')
-            ->display_as('urlRedSocial','<b>Sólo el nombre de usuario de tu cuenta</b>');
+            ->display_as('urlRedSocial','<b>Sólo el nombre de tu página o perfil</b>');
 
             $data = $crud->render();
 
@@ -89,9 +86,7 @@ class Admin extends CI_Controller
         }
     }
 
-
-    function add_redesSOciales()
-    {
+    function add_redesSOciales() {
         return ' <input type="radio" name="redsocial" value="Facebook" /> Facebook<br/>
         <input type="radio" name="redsocial" value="Instagram" /> Instagram<br/>
         <input type="radio" name="redsocial" value="YouTube" /> YouTube<br/>
@@ -99,9 +94,7 @@ class Admin extends CI_Controller
         <input type="radio" name="redsocial" value="Otro" /> Otro';
     }
 
-
-    public function ubicaciones_management()
-    {
+    public function ubicaciones_management() {
         try {
             $crud = new grocery_CRUD();
 
@@ -127,8 +120,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function catusuarios_management()
-    {
+    public function catusuarios_management() {
         try {
             $crud = new grocery_CRUD();
 
@@ -151,8 +143,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function usuarios_management()
-    {
+    public function usuarios_management() {
         try {
             $crud = new grocery_CRUD();
             $state = $crud->getState();
@@ -189,8 +180,7 @@ class Admin extends CI_Controller
         }
     }
     /*
-    function encrypt_password_callback($post_array, $primary_key = null)
-    {
+    function encrypt_password_callback($post_array, $primary_key = null) {
         $this->load->library('encrypt');
      
         $key = 'xhtweb';
@@ -198,8 +188,7 @@ class Admin extends CI_Controller
         return $post_array;
     }
      
-    function decrypt_password_callback($value)
-    {
+    function decrypt_password_callback($value) {
         $this->load->library('encrypt');
      
         $key = 'xhtweb';
@@ -209,10 +198,7 @@ class Admin extends CI_Controller
     */
 
     public function index() {
-        
         $this->_exit_view((object)array('output' => '', 'data' => '', 'js_files' => array(), 'css_files' => array()));
-
-
     }
 
     
