@@ -22,6 +22,8 @@ class Services extends CI_Controller
 
     public function actualiza_usuario() {
         $data = $_REQUEST;
+        
+        print_r($data);
         // updateUser 
         $result     = $this->start_session_one->updateUser($data['id'], $data);
         $updateUser = 1; // $result->result_id->num_rows;
