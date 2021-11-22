@@ -13,26 +13,42 @@ class Services extends CI_Controller
     }
 
     public function user_session(){
-        echo $this->session->id;
+        // echo $this->session->id;
+        $sessionData['idSession']= $this->session;
+        $data = $_REQUEST;
+        $userLogged = $this->session->id;
+        if($userLogged == $data['id']){        
+            $this->output->set_content_type('application/json')->set_output(json_encode($sessionData));
+        } else{
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('error' => 'No esta logueado')));
+        }
     }
 
     public function cerrar_sesion(){
-        $this->session->unset_userdata('id', 'session_id', 'imagenPrincipal', 'nombre', 'logged_in');
+        $this->session->sess_destroy();
+        // ('id', 'session_id', 'imagenPrincipal', 'nombre', 'logged_in');
     }
 
     public function actualiza_usuario() {
         $data = $_REQUEST;
-        unset($data['ci_session']);
+        // unset($data['ci_session']);
         // print_r($data);
         // updateUser 
+        $userLogged = $this->session->id;
         $result     = $this->start_session_one->updateUser($data['id'], $data);
+        $arraResponse['result']     = $result;
         $updateUser = 1; // $result->result_id->num_rows;
-        if($updateUser >= 1) {
-            $arraResponse['status']     = 'SUCCESS';
-            $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente,';
-        } else {
+        if($userLogged == $data['id']){
+            if($updateUser >= 1) {
+                $arraResponse['status']     = 'SUCCESS';
+                $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
+            } else {
+                $arraResponse['status']     = 'ERROR';
+                $arraResponse['msg']        = 'Los datos NO fueron actualizados, favor de verificar.';
+            }    
+        }else {
             $arraResponse['status']     = 'ERROR';
-            $arraResponse['msg']        = 'Los datos NO fueron actualizados, favor de verificar.';
+            $arraResponse['msg']        = 'Usuario incorrecto, favor de verificar.';
         }
         $this->output
         ->set_content_type('application/json')
@@ -51,10 +67,12 @@ class Services extends CI_Controller
             $arraResponse['id'] = $result->row(0)->id;
             $arraResponse['imagenPrincipal'] = $result->row(0)->imagenPrincipal;
             $arraResponse['logged_in'] = 'true';
+            $arraResponse['catUsuarios_id'] = $result->row(0)->catUsuarios_id;
             $this->session->set_userdata($arraResponse);
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
             $arraResponse['msg'] = 'Inicio de sesión correcto.';
+
         } else {
             $arraResponse['status'] = 'ERROR';
             $arraResponse['msg'] = 'Nombre de usuario o cotraseña incorrecto.';
