@@ -3,18 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->database();
         $this->load->helper('url');
         $this->load->library('grocery_CRUD');
     }
 
-    public function _exit_view($data = null) {
+    public function _exit_view($data = null)
+    {
         $this->load->view('admin/mainAdmin.php', (array)$data);
     }
 
-    public function catservicios_management() {
+    public function catservicios_management()
+    {
         try {
             $crud = new grocery_CRUD();
             $crud->set_theme('datatables');
@@ -24,10 +27,10 @@ class Admin extends CI_Controller
             $crud->columns('nombreCat', 'descripCat', 'logoURLCat');
             $crud->set_field_upload('logoURLCat', 'assets/uploads/files/logoServicios');
 
-            $crud->display_as('nombreCat','Nombre de categoría')
-            ->display_as('descripCat','Descripción de la categoría')
-            ->display_as('logoURLCat','Logotipo de la categoría');
- 
+            $crud->display_as('nombreCat', 'Nombre de categoría')
+                ->display_as('descripCat', 'Descripción de la categoría')
+                ->display_as('logoURLCat', 'Logotipo de la categoría');
+
 
             $data = $crud->render();
 
@@ -37,7 +40,8 @@ class Admin extends CI_Controller
         }
     }
 
-    public function servicios_management() {
+    public function servicios_management()
+    {
         try {
             $crud = new grocery_CRUD();
 
@@ -51,9 +55,9 @@ class Admin extends CI_Controller
             $crud->required_fields('nombre');
             $crud->columns('nombre', 'logoPrestadoresServicios', 'descripPrestadoresServicios');
             $crud->set_field_upload('logoPrestadoresServicios', 'assets/uploads/files/logoServicios');
-            $crud->display_as('nombre','Nombre de servicio')
-            ->display_as('descripPrestadoresServicios','Descripción de prestador de servicios')
-            ->display_as('logoPrestadoresServicios','Logotipo de prestador de servicios');
+            $crud->display_as('nombre', 'Nombre de servicio')
+                ->display_as('descripPrestadoresServicios', 'Descripción de prestador de servicios')
+                ->display_as('logoPrestadoresServicios', 'Logotipo de prestador de servicios');
 
             $data = $crud->render();
 
@@ -63,7 +67,8 @@ class Admin extends CI_Controller
         }
     }
 
-    public function snservicios_management() {
+    public function snservicios_management()
+    {
         try {
             $crud = new grocery_CRUD();
 
@@ -74,9 +79,9 @@ class Admin extends CI_Controller
             $crud->required_fields('nombre');
             $crud->columns('redsocial', 'urlRedSocial');
             $crud->callback_add_field('redsocial', array($this, 'add_redesSOciales'));
-            $crud->display_as('redsocial','Nombre de redsocial')
-            ->display_as('prestadoresServicios_id', 'Prestadores de servicios')
-            ->display_as('urlRedSocial','<b>Sólo el nombre de tu página o perfil</b>');
+            $crud->display_as('redsocial', 'Nombre de redsocial')
+                ->display_as('prestadoresServicios_id', 'Prestadores de servicios')
+                ->display_as('urlRedSocial', '<b>Sólo el nombre de tu página o perfil</b>');
 
             $data = $crud->render();
 
@@ -86,7 +91,8 @@ class Admin extends CI_Controller
         }
     }
 
-    function add_redesSOciales() {
+    function add_redesSOciales()
+    {
         return ' <input type="radio" name="redsocial" value="Facebook" /> Facebook<br/>
         <input type="radio" name="redsocial" value="Instagram" /> Instagram<br/>
         <input type="radio" name="redsocial" value="YouTube" /> YouTube<br/>
@@ -94,7 +100,8 @@ class Admin extends CI_Controller
         <input type="radio" name="redsocial" value="Otro" /> Otro';
     }
 
-    public function ubicaciones_management() {
+    public function ubicaciones_management()
+    {
         try {
             $crud = new grocery_CRUD();
 
@@ -105,10 +112,10 @@ class Admin extends CI_Controller
             $crud->set_subject('Sucursales de servicios');
             $crud->required_fields('nombre');
             $crud->columns('nombreUbicacion', 'direccionServicio', 'tel1', 'tel2');
-            $crud->display_as('nombreUbicacion','Nombre de sucurssal')
-            ->display_as('direccionServicio','Dirección de sucursal')
-            ->display_as('tel1','Número de teléfono 1')
-            ->display_as('tel2','Número de teléfono 2');
+            $crud->display_as('nombreUbicacion', 'Nombre de sucurssal')
+                ->display_as('direccionServicio', 'Dirección de sucursal')
+                ->display_as('tel1', 'Número de teléfono 1')
+                ->display_as('tel2', 'Número de teléfono 2');
             $crud->unset_read_fields('lat', 'lon');
 
 
@@ -120,7 +127,8 @@ class Admin extends CI_Controller
         }
     }
 
-    public function catusuarios_management() {
+    public function catusuarios_management()
+    {
         try {
             $crud = new grocery_CRUD();
 
@@ -130,9 +138,9 @@ class Admin extends CI_Controller
             $crud->required_fields('nombre');
             $crud->columns('nombre', 'descripcion', 'iconoURL');
             $crud->set_field_upload('iconoURL', 'assets/uploads/files/logoServicios');
-            $crud->display_as('nombreUbicacion','Nombre de categoria de usuario')
-            ->display_as('descripcion','Descripcion de categoria de usuario')
-            ->display_as('iconoURL','Icono de categoría');
+            $crud->display_as('nombreUbicacion', 'Nombre de categoria de usuario')
+                ->display_as('descripcion', 'Descripcion de categoria de usuario')
+                ->display_as('iconoURL', 'Icono de categoría');
 
 
             $data = $crud->render();
@@ -143,7 +151,8 @@ class Admin extends CI_Controller
         }
     }
 
-    public function usuarios_management() {
+    public function usuarios_management()
+    {
         try {
             $crud = new grocery_CRUD();
             $state = $crud->getState();
@@ -152,15 +161,15 @@ class Admin extends CI_Controller
             $crud->set_subject('Usuarios');
             $crud->required_fields('username', 'nombre');
             $crud->set_relation('catUsuarios_id', 'catusuarios', 'nombre');
-            if($state == "edit"){
-                $crud->field_type('username','readonly');
+            if ($state == "edit") {
+                $crud->field_type('username', 'readonly');
             }
             $crud->display_as('catServicios_id', 'Categoría de usuarios');
             $crud->columns('nombre', 'username', 'pwclaveacceso_6', 'imagenPrincipal');
             $crud->set_field_upload('imagenPrincipal', 'assets/uploads/files/logoServicios');
-            $crud->display_as('username','Nombre de usuario email')
-            ->display_as('pwclaveacceso_6','Password')
-            ->display_as('imagenPrincipal','Imagen principal del usuario');
+            $crud->display_as('username', 'Nombre de usuario email')
+                ->display_as('pwclaveacceso_6', 'Password')
+                ->display_as('imagenPrincipal', 'Imagen principal del usuario');
             $crud->field_type('pwclaveacceso_6', 'password');
             $crud->unset_read_fields('pwclaveacceso_6');
 
@@ -171,7 +180,7 @@ class Admin extends CI_Controller
             $crud->callback_before_update(array($this,'encrypt_password_callback'));
             $crud->callback_edit_field('pwclaveacceso_6',array($this,'decrypt_password_callback'));
             */
-          
+
             $data = $crud->render();
 
             $this->_exit_view($data);
@@ -179,27 +188,9 @@ class Admin extends CI_Controller
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
     }
-    /*
-    function encrypt_password_callback($post_array, $primary_key = null) {
-        $this->load->library('encrypt');
-     
-        $key = 'xhtweb';
-        $post_array['pwclaveacceso_6'] = $this->encrypt->encode($post_array['pwclaveacceso_6'], $key);
-        return $post_array;
-    }
-     
-    function decrypt_password_callback($value) {
-        $this->load->library('encrypt');
-     
-        $key = 'xhtweb';
-        $decrypted_password = $this->encrypt->decode($value, $key);
-        return "<input type='password' name='pwclaveacceso_6' value='$decrypted_password' />";
-    }
-    */
 
-    public function index() {
+    public function index()
+    {
         $this->_exit_view((object)array('output' => '', 'data' => '', 'js_files' => array(), 'css_files' => array()));
     }
-
-    
 }

@@ -10,6 +10,22 @@ class Services extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('start_session_one');
+        $this->load->model('datos_servicios');
+    }
+
+    public function locationList() {
+        $sessionData['idSession'] = $this->session;
+        $data = $_REQUEST;
+        $userLogged = $sessionData['idSession']->id;
+        if ($userLogged == $data['id']) {
+            $arraResponse['status']     = 'SUCCESS';
+            $arraResponse['msg']        = 'Listado de sucursales.';
+            $arraResponse['sucursales'] = $this->datos_servicios->getSucursales($data['id']);
+        } else {
+            $arraResponse['status']     = 'ERROR';
+            $arraResponse['msg']        = 'Usuario no inició sesión.';
+        }      
+        $this->output->set_content_type('application/json')->set_output(json_encode($arraResponse));          
     }
 
     public function user_session()
