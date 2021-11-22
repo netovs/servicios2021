@@ -64,6 +64,7 @@ class Services extends CI_Controller
             $arraResponse['result']     = $result;
             $arraResponse['status']     = 'SUCCESS';
             $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
+            $arraResponse['session_id']        = $userLogged;
         } else {
             $arraResponse['status']     = 'ERROR';
             $arraResponse['msg']        = 'Usuario incorrecto, favor de verificar.';
