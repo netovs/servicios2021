@@ -12,55 +12,58 @@ class Services extends CI_Controller
         $this->load->model('start_session_one');
     }
 
-    public function user_session(){
-        // echo $this->session->id;
-        $sessionData['idSession']= $this->session;
+    public function user_session()
+    {
+        $sessionData['idSession'] = $this->session;
         $data = $_REQUEST;
-        $userLogged = $this->session->id;
-        if($userLogged == $data['id']){        
+        $userLogged = $sessionData['idSession']->id;
+
+        if ($userLogged == $data['id']) {
+            $arraResponse['status']     = 'SUCCESS';
+            $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
             $this->output->set_content_type('application/json')->set_output(json_encode($sessionData));
-        } else{
-            $this->output->set_content_type('application/json')->set_output(json_encode(array('error' => 'No esta logueado')));
+        } else {
+            $arraResponse['status']     = 'ERROR';
+            $arraResponse['msg']        = 'Usuario no inició sesión.';
+            $this->output->set_content_type('application/json')->set_output(json_encode($arraResponse));
         }
     }
 
-    public function cerrar_sesion(){
+    public function cerrar_sesion()
+    {
         $this->session->sess_destroy();
         // ('id', 'session_id', 'imagenPrincipal', 'nombre', 'logged_in');
     }
 
-    public function actualiza_usuario() {
+    public function actualiza_usuario()
+    {
         $data = $_REQUEST;
         // unset($data['ci_session']);
         // print_r($data);
         // updateUser 
         $userLogged = $this->session->id;
-        $result     = $this->start_session_one->updateUser($data['id'], $data);
-        $arraResponse['result']     = $result;
         $updateUser = 1; // $result->result_id->num_rows;
-        if($userLogged == $data['id']){
-            if($updateUser >= 1) {
-                $arraResponse['status']     = 'SUCCESS';
-                $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
-            } else {
-                $arraResponse['status']     = 'ERROR';
-                $arraResponse['msg']        = 'Los datos NO fueron actualizados, favor de verificar.';
-            }    
-        }else {
+        if ($userLogged == $data['id']) {
+            $result     = $this->start_session_one->updateUser($data['id'], $data);
+            $arraResponse['result']     = $result;
+            $arraResponse['status']     = 'SUCCESS';
+            $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
+        } else {
             $arraResponse['status']     = 'ERROR';
             $arraResponse['msg']        = 'Usuario incorrecto, favor de verificar.';
         }
         $this->output
-        ->set_content_type('application/json')
-        ->set_output(json_encode($arraResponse));  
+            ->set_content_type('application/json')
+            ->set_output(json_encode($arraResponse));
     }
-    
-    public function iniciar_sesion(){
+
+    public function iniciar_sesion()
+    {
         //  $data = json_decode(file_get_contents('php://input'), true);
         $data = $_REQUEST;
         $result = $this->start_session_one->findUser($data['username'], $data['pwclaveacceso_6']);
         $findUser = $result->result_id->num_rows;
-        if($findUser == 1){
+        if ($findUser == 1) {
             $arraResponse['status'] = 'SUCCESS';
             $arraResponse['nombre'] = $result->row(0)->nombre;
             $arraResponse['nombreRepresentante'] = $result->row(0)->nombreRepresentante;
@@ -72,7 +75,6 @@ class Services extends CI_Controller
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
             $arraResponse['msg'] = 'Inicio de sesión correcto.';
-
         } else {
             $arraResponse['status'] = 'ERROR';
             $arraResponse['msg'] = 'Nombre de usuario o cotraseña incorrecto.';
@@ -86,7 +88,7 @@ class Services extends CI_Controller
         ->set_output(json_encode($data));
         */
         $this->output
-        ->set_content_type('application/json')
-        ->set_output(json_encode($arraResponse));    
+            ->set_content_type('application/json')
+            ->set_output(json_encode($arraResponse));
     }
 }
