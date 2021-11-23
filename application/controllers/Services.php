@@ -57,8 +57,11 @@ class Services extends CI_Controller
         // unset($data['ci_session']);
         // print_r($data);
         // updateUser 
+        $ciSess = $data['__ci_last_regenerate'];
         $userLogged = $this->session->id;
+        $ci_last    = $this->session->__ci_last_regenerate;
         $updateUser = 1; // $result->result_id->num_rows;
+        $arraResponse['ci_last'] = $ci_last;
         $arraResponse['session_id']        = $userLogged;
         if ($userLogged == $data['id']) {
             $result     = $this->start_session_one->updateUser($data['id'], $data);
