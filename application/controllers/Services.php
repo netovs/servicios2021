@@ -59,6 +59,7 @@ class Services extends CI_Controller
         // updateUser 
         $userLogged = $this->session->id;
         $updateUser = 1; // $result->result_id->num_rows;
+        $arraResponse['session_id']        = $userLogged;
         if ($userLogged == $data['id']) {
             $result     = $this->start_session_one->updateUser($data['id'], $data);
             $arraResponse['result']     = $result;
