@@ -89,10 +89,11 @@ class Services extends CI_Controller
             $arraResponse['imagenPrincipal'] = $result->row(0)->imagenPrincipal;
             $arraResponse['logged_in'] = 'true';
             $arraResponse['catUsuarios_id'] = $result->row(0)->catUsuarios_id;
+            $arraResponse['msg'] = 'Inicio de sesión correcto.';
             $this->session->set_userdata($arraResponse);
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
-            $arraResponse['msg'] = 'Inicio de sesión correcto.';
+            $arraResponse['__ci_last_regenerate'] = $this->session->__ci_last_regenerate;
         } else {
             $arraResponse['status'] = 'ERROR';
             $arraResponse['msg'] = 'Nombre de usuario o cotraseña incorrecto.';
