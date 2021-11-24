@@ -18,7 +18,13 @@ class Services extends CI_Controller
         $sessionData['idSession'] = $this->session;
         $data = $_REQUEST;
         $userLogged = $sessionData['idSession']->id;
-        if ($userLogged == $data['id']) {
+        $idUsuario = $data['id'];
+        $ci_last    = $data['__ci_last_regenerate'];
+        $result = $this->start_session_one->serachSession($idUsuario, $ci_last);
+        // print_r($result->result_id->num_rows);
+
+        
+        if ($result == 1) {
             $arraResponse['status']     = 'SUCCESS';
             $arraResponse['msg']        = 'Listado de sucursales.';
             $arraResponse['sucursales'] = $this->datos_servicios->getSucursales($data['id']);
@@ -59,10 +65,11 @@ class Services extends CI_Controller
         // print_r($data);
         // updateUser 
         $userLogged = $this->session->id;
-        $ci_last    = $data['__ci_last_regenerate']; //  $this->session->__ci_last_regenerate;
+   //  $this->session->__ci_last_regenerate;
         $arraResponse['ci_last'] = $ci_last;
         $arraResponse['session_id']        = $userLogged;
         $idUsuario = $data['id'];
+        $ci_last    = $data['__ci_last_regenerate'];
         $result = $this->start_session_one->serachSession($idUsuario, $ci_last);
         // print_r($result->result_id->num_rows);
 
