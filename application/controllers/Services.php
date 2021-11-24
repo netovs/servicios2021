@@ -97,6 +97,8 @@ class Services extends CI_Controller
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
             $arraResponse['__ci_last_regenerate'] = $this->session->__ci_last_regenerate;
+            $this->start_session_one->updateSession($session_id , $this->session->__ci_last_regenerate);
+
         } else {
             $arraResponse['status'] = 'ERROR';
             $arraResponse['msg'] = 'Nombre de usuario o cotraseña incorrecto.';

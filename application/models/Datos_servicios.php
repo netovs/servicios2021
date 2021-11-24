@@ -8,4 +8,6 @@ class Datos_servicios extends CI_Model {
         return $query->result_array();
     }
 
+    
+
 }

@@ -24,4 +24,12 @@ class Start_session_one extends CI_Model
             return false;
         }
     }
+
+    public function updateSession($idUsuario = null, $ci_last = null) {
+        
+        $field = array('__ci_last_regenerate' => $ci_last);
+        $this->db->where('id', $idUsuario);
+        $this->db->update('usuarios', $field);
+
+    }
 }
