@@ -13,7 +13,8 @@ class Services extends CI_Controller
         $this->load->model('datos_servicios');
     }
 
-    public function locationList() {
+    public function locationList()
+    {
         $sessionData['idSession'] = $this->session;
         $data = $_REQUEST;
         $userLogged = $sessionData['idSession']->id;
@@ -24,8 +25,8 @@ class Services extends CI_Controller
         } else {
             $arraResponse['status']     = 'ERROR';
             $arraResponse['msg']        = 'Usuario no inició sesión.';
-        }      
-        $this->output->set_content_type('application/json')->set_output(json_encode($arraResponse));          
+        }
+        $this->output->set_content_type('application/json')->set_output(json_encode($arraResponse));
     }
 
     public function user_session()
@@ -59,11 +60,16 @@ class Services extends CI_Controller
         // updateUser 
         $ciSess = $data['__ci_last_regenerate'];
         $userLogged = $this->session->id;
-        $ci_last    = $this->session->__ci_last_regenerate;
+        $ci_last    = $data['__ci_last_regenerate']; //  $this->session->__ci_last_regenerate;
         $updateUser = 1; // $result->result_id->num_rows;
         $arraResponse['ci_last'] = $ci_last;
         $arraResponse['session_id']        = $userLogged;
-        if ($ci_last == $ciSess) {
+        $idUsuario = $data['id'];
+        $result = $this->start_session_one->serachSession($idUsuario, $ci_last);
+        // print_r($result->result_id->num_rows);
+
+        
+        if ($result == 1) {
             $result     = $this->start_session_one->updateUser($data['id'], $data);
             $arraResponse['result']     = $result;
             $arraResponse['status']     = 'SUCCESS';
@@ -97,8 +103,7 @@ class Services extends CI_Controller
             $session_id = $this->session->id;
             $arraResponse['session_id'] = $session_id;
             $arraResponse['__ci_last_regenerate'] = $this->session->__ci_last_regenerate;
-            $this->start_session_one->updateSession($session_id , $this->session->__ci_last_regenerate);
-
+            $this->start_session_one->updateSession($session_id, $this->session->__ci_last_regenerate);
         } else {
             $arraResponse['status'] = 'ERROR';
             $arraResponse['msg'] = 'Nombre de usuario o cotraseña incorrecto.';

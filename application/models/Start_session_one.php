@@ -1,6 +1,17 @@
 <?php
 class Start_session_one extends CI_Model
 {
+    public function serachSession($idUsuario=null, $ci_ss=null){
+        $array = array('id'=>$idUsuario, '__ci_last_regenerate'=> $ci_ss);
+        $this->db->where($array);
+        $query = $this->db->get('usuarios');
+
+        if (!empty($query)) {
+            return $query;
+        } else {
+            return false;
+        }        
+    }
 
     public function updateUser($idUsuario = null, $data = null) {
         $this->db->where('id', $idUsuario);
