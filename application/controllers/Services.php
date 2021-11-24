@@ -13,7 +13,7 @@ class Services extends CI_Controller
         $this->load->model('datos_servicios');
     }
 
-    public function locationList()
+    public function locationList() // Lista de sucursales 
     {
         $sessionData['idSession'] = $this->session;
         $data = $_REQUEST;
@@ -58,10 +58,8 @@ class Services extends CI_Controller
         // unset($data['ci_session']);
         // print_r($data);
         // updateUser 
-        $ciSess = $data['__ci_last_regenerate'];
         $userLogged = $this->session->id;
         $ci_last    = $data['__ci_last_regenerate']; //  $this->session->__ci_last_regenerate;
-        $updateUser = 1; // $result->result_id->num_rows;
         $arraResponse['ci_last'] = $ci_last;
         $arraResponse['session_id']        = $userLogged;
         $idUsuario = $data['id'];
