@@ -71,10 +71,10 @@ class Services extends CI_Controller
         $idUsuario = $data['id'];
         
         $result = $this->start_session_one->serachSession($idUsuario, $ci_last);
-        // print_r($result->result_id->num_rows);
+        $numRows = $result->result_id->num_rows;
 
         
-        if ($result == "1") {
+        if ($numRows == "1") {
             $result     = $this->start_session_one->updateUser($data['id'], $data);
             // $arraResponse['result']     = $result;
             $arraResponse['status']     = 'SUCCESS';
