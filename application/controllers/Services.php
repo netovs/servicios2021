@@ -65,11 +65,11 @@ class Services extends CI_Controller
         // print_r($data);
         // updateUser 
         $userLogged = $this->session->id;
-   //  $this->session->__ci_last_regenerate;
-        $arraResponse['ci_last'] = $ci_last;
-        $arraResponse['session_id']        = $userLogged;
-        $idUsuario = $data['id'];
         $ci_last    = $data['__ci_last_regenerate'];
+        $arraResponse['session_id']        = $userLogged;
+        $arraResponse['ci_last']        = $ci_last;
+        $idUsuario = $data['id'];
+        
         $result = $this->start_session_one->serachSession($idUsuario, $ci_last);
         // print_r($result->result_id->num_rows);
 
