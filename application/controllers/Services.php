@@ -76,7 +76,7 @@ class Services extends CI_Controller
         
         if ($result == 1) {
             $result     = $this->start_session_one->updateUser($data['id'], $data);
-            $arraResponse['result']     = $result;
+            // $arraResponse['result']     = $result;
             $arraResponse['status']     = 'SUCCESS';
             $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
             $arraResponse['session_id']        = $userLogged;
