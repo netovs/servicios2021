@@ -64,10 +64,7 @@ class Services extends CI_Controller
         // unset($data['ci_session']);
         // print_r($data);
         // updateUser 
-        $userLogged = $this->session->id;
         $ci_last    = $data['__ci_last_regenerate'];
-        $arraResponse['session_id']        = $userLogged;
-        $arraResponse['ci_last']        = $ci_last;
         $idUsuario = $data['id'];
         
         $result = $this->start_session_one->serachSession($idUsuario, $ci_last);
@@ -80,6 +77,7 @@ class Services extends CI_Controller
             $arraResponse['status']     = 'SUCCESS';
             $arraResponse['msg']        = 'Los datos fueron actualizados exitosamente.';
             $arraResponse['session_id']        =  $data['id'];
+            $arraResponse['ci_last']        = $ci_last;
         } else {
             $arraResponse['status']     = 'ERROR';
             $arraResponse['msg']        = 'Usuario incorrecto, favor de verificar.';
