@@ -74,7 +74,7 @@ class Services extends CI_Controller
         // print_r($result->result_id->num_rows);
 
         
-        if ($result == 1) {
+        if ($result == "1") {
             $result     = $this->start_session_one->updateUser($data['id'], $data);
             // $arraResponse['result']     = $result;
             $arraResponse['status']     = 'SUCCESS';
