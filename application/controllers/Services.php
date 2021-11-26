@@ -55,7 +55,11 @@ class Services extends CI_Controller
     public function cerrar_sesion()
     {
         $this->session->sess_destroy();
+        $data = $_REQUEST;
         // ('id', 'session_id', 'imagenPrincipal', 'nombre', 'logged_in');
+        $arraResponse['status']='';
+        $arraResponse['msg']='';
+        $this->output->set_content_type('application/json')->set_output(json_encode($arraResponse));
     }
 
     public function actualiza_usuario()

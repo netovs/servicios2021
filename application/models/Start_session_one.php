@@ -24,6 +24,12 @@ class Start_session_one extends CI_Model
         }
     }
 
+    public function closeSession($idUsuario = null, $data = null) {
+        $field = array('__ci_last_regenerate' => '');
+        $this->db->where('id', $idUsuario);
+        $this->db->update('usuarios', $field);
+    }
+
     public function findUser($username = null, $pwclaveacceso_6 = null) {
         $array = array('username' => $username, 'pwclaveacceso_6' => $pwclaveacceso_6);
         $this->db->where($array);
