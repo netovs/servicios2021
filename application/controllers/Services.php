@@ -58,7 +58,7 @@ class Services extends CI_Controller
         $data = $_REQUEST;
         // ('id', 'session_id', 'imagenPrincipal', 'nombre', 'logged_in');
         $this->start_session_one->closeSession($data['id'], $data);
-        $arraResponse['status']='';
+        $arraResponse['status']='SUCCESS';
         $arraResponse['msg']='';
         $this->output->set_content_type('application/json')->set_output(json_encode($arraResponse));
     }
