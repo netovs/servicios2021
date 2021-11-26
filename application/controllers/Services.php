@@ -62,7 +62,9 @@ class Services extends CI_Controller
     {
         $data = $_REQUEST;
         // unset($data['ci_session']);
+        echo '<pre>';
         print_r($data);
+        echo '</pre>';
         // updateUser 
         $ci_last    = $data['__ci_last_regenerate'];
         $idUsuario = $data['id'];
