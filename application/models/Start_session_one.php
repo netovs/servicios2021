@@ -25,7 +25,7 @@ class Start_session_one extends CI_Model
     }
 
     public function closeSession($idUsuario = null, $data = null) {
-        $field = array('__ci_last_regenerate' => '');
+        $field = array('__ci_last_regenerate' => '', 'ci_session' => '');
         $this->db->where('id', $idUsuario);
         $this->db->update('usuarios', $field);
     }
